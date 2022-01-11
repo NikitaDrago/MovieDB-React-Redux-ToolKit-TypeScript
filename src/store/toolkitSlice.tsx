@@ -1,6 +1,7 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
+import { Payload, TFetchFilms, Toolkit, TState} from "../interfaces";
 
-const initialState = {
+const initialState: TState = {
   films: [],
   pagesCount: 0,
   apiKey: 'ebea8cfca72fdff8d2624ad7bbf78e4c',
@@ -10,10 +11,10 @@ const initialState = {
 
 export const fetchFilms = createAsyncThunk(
   'films/fetchFilms',
-  async ({page, apiKey}, {rejectWithValue}) => {
+  async ({currentPage, apiKey}: TFetchFilms, {rejectWithValue}) => {
 
     try {
-      const response = await fetch(`https://api.themoviedb.org/3/movie/now_playing?api_key=${apiKey}&page=${page}`);
+      const response = await fetch(`https://api.themoviedb.org/3/movie/now_playing?api_key=${apiKey}&page=${currentPage}`);
       const data = await response.json();
 
       if (!response.ok) {
@@ -21,29 +22,30 @@ export const fetchFilms = createAsyncThunk(
       }
 
       return data;
-    } catch (error) {
+    } catch (error: any) {
       return rejectWithValue(error.message);
     }
   }
 );
 
-const toolkitSlice = createSlice({
+const toolkitSlice: Toolkit = createSlice({
   name: 'films',
+  reducers: {},
   initialState,
   extraReducers: {
-    [fetchFilms.pending]: (state) => {
+    [fetchFilms.pending]: (state: TState) => {
       state.status = 'loading';
     },
-    [fetchFilms.fulfilled]: (state, action) => {
+    [fetchFilms.fulfilled]: (state: TState, action: { payload: Payload }) => {
       state.status = 'resolved';
       state.films = action.payload.results;
       state.pagesCount = action.payload.total_pages;
     },
-    [fetchFilms.rejected]: (state, action) => {
+    [fetchFilms.rejected]: (state: TState, action: { payload: string | null | undefined; }) => {
       state.status = 'rejected';
       state.error = action.payload;
     }
   }
-});
+})
 
 export default toolkitSlice.reducer;

@@ -1,20 +1,21 @@
 import "./FilmList.css";
-import { useCallback, useEffect } from "react";
-import { useDispatch, useSelector } from 'react-redux';
-import { apiKeySelector, filmSelector, pagesCountSelector } from "../../store/selectors";
+import {FC, useCallback, useEffect} from "react";
+import {useDispatch, useSelector} from 'react-redux';
+import {apiKeySelector, filmSelector, pagesCountSelector} from "../../store/selectors";
 import Film from "./Film/Film";
 import ReactPaginate from "react-paginate";
 import './Pagination.css';
-import { useHistory, useParams } from "react-router-dom";
-import { fetchFilms } from "../../store/toolkitSlice";
+import {useHistory, useParams} from "react-router-dom";
+import {fetchFilms} from "../../store/toolkitSlice";
+import {TFilmList, UserItemPageParams} from '../../interfaces'
 
-const FilmList = () => {
+const FilmList: FC = () => {
   const dispatch = useDispatch();
-  const filmsList = useSelector(filmSelector);
+  const filmsList: Array<TFilmList> = useSelector(filmSelector);
   const pagesCount = useSelector(pagesCountSelector);
   const apiKey = useSelector(apiKeySelector);
-  const {page} = useParams();
-  const currentPage = page?.slice(5) || 1;
+  const {page} = useParams<UserItemPageParams>();
+  const currentPage: string | number = page?.slice(5) || 1;
   const history = useHistory();
 
   const handlePageClick = useCallback(({selected}) => {
@@ -30,10 +31,10 @@ const FilmList = () => {
     <main className="releases">
       <div className="releases-films">
         {
-          filmsList &&
-          filmsList.map(item =>
-            <Film key={item.id} film={item} page={currentPage} poster={item?.poster_path}
-                  title={item.original_title}/>
+          filmsList && filmsList.map(
+            (item) =>
+              <Film key={item.id} id={item.id} page={currentPage} poster={item.poster_path}
+                    title={item.original_title}/>
           )
         }
       </div>
@@ -45,7 +46,6 @@ const FilmList = () => {
         pageCount={pagesCount}
         previousLabel="<"
         containerClassName="pagination"
-        renderOnZeroPageCount={null}
       />
     </main>
   );

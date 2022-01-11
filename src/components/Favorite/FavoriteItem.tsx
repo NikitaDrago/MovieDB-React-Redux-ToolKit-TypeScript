@@ -1,6 +1,14 @@
-import { useCallback } from "react";
+import {useCallback} from "react";
 
-const FavoriteItem = ({id, poster, title, overview, onUnfavoriteFilm}) => {
+type Props = {
+  id: number | undefined,
+  poster: string | undefined,
+  title: string | undefined,
+  overview: string | undefined,
+  onUnfavoriteFilm: Function,
+}
+
+const FavoriteItem = ({id, poster, title, overview, onUnfavoriteFilm}: Props) => {
 
   const handleUnfavoriteFilm = useCallback(() => {
     onUnfavoriteFilm(id);

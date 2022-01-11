@@ -23,8 +23,9 @@ const FilmInfo = () => {
     getFilmData(id, apiKey).then(response => setData(response));
   }, [id]);
 
-  const handleAddToFavorite = useCallback((e) => {
+  const handleAddToFavorite = useCallback(() => {
     const storage = localStorage.getItem('favorite');
+
 
     if ([...storage.split(',')].includes(id)) {
       alert('This movies is already on the favorites list');
@@ -36,15 +37,15 @@ const FilmInfo = () => {
   const handleNextMovie = useCallback(async () => {
     let nextPage = currentPage;
     let filmsList = await getFilmList(nextPage, apiKey);
+    console.log(filmsList);
     const currentIndex = filmsList.results.findIndex(item => item.id === +id);
 
     if (currentIndex === filmsList.results.length - 1) {
       nextPage += 1;
       filmsList = await getFilmList(nextPage, apiKey);
     }
-
     history.push(`/page-${nextPage}/${filmsList.results[currentIndex === filmsList.results.length - 1 ? 0 : currentIndex + 1].id}`);
-  }, [history]);
+  }, [history, id]);
 
   useEffect(() => {
     fetchFilmData();

@@ -1,9 +1,9 @@
-export const getFilmList = async (page, apiKey) => {
+export const getFilmList = async (page: number, apiKey: string) => {
   const res = await fetch(`https://api.themoviedb.org/3/movie/now_playing?api_key=${apiKey}&page=${page}`);
   return res.json();
 };
 
-export const getFilmData = async (id, apiKey) => {
+export const getFilmData = async (id: string | number, apiKey: string) => {
   const res = await fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}`);
   return res.json();
 };
