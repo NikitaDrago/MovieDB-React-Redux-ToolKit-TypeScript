@@ -11,10 +11,15 @@ export interface TFetchFilms {
 }
 
 export interface TFilmList {
-  id?: number,
-  poster_path?: string,
-  original_title?: string,
-  overview?: string
+  id?: number | undefined,
+  poster_path?: string | undefined,
+  original_title?: string | undefined,
+  overview?: string | undefined,
+  backdrop_path?: string | undefined,
+  title?: string | undefined,
+  vote_average?: string | undefined,
+  runtime?: string | undefined,
+  release_date?: string | undefined,
 }
 
 export interface Toolkit {

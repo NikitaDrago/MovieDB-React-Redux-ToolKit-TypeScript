@@ -35,8 +35,8 @@ const Favorite = () => {
     fetchFilmData();
   }, [fetchFilmData]);
 
-  return <main className="FavoriteItem-wrapper">
-  <h1 className="FavoriteItem__title">My Favorite</h1>
+  return <main className="favoriteItem-wrapper">
+  <h1 className="favoriteItem__title">My Favorite</h1>
   {
     favoriteList && favoriteList.map(
       (item) =>
