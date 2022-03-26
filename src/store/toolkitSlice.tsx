@@ -1,5 +1,5 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
-import { Payload, TFetchFilms, Toolkit, TState} from "../interfaces";
+import {Payload, TFetchFilms, Toolkit, TState} from "../interfaces";
 
 const initialState: TState = {
   films: [],
@@ -32,20 +32,17 @@ const toolkitSlice: Toolkit = createSlice({
   name: 'films',
   reducers: {},
   initialState,
-  extraReducers: {
-    [fetchFilms.pending]: (state: TState) => {
-      state.status = 'loading';
-    },
-    [fetchFilms.fulfilled]: (state: TState, action: { payload: Payload }) => {
-      state.status = 'resolved';
-      state.films = action.payload.results;
-      state.pagesCount = action.payload.total_pages;
-    },
-    [fetchFilms.rejected]: (state: TState, action: { payload: string | null | undefined; }) => {
-      state.status = 'rejected';
-      state.error = action.payload;
-    }
-  }
+  extraReducers: (builder) => {
+    builder.addCase(fetchFilms.pending, (state, action) => {
+      state.status = 'loading'
+    }).addCase(fetchFilms.fulfilled, (state, action) => {
+      state.status = 'resolved'
+      state.films = action.payload.results
+      state.pagesCount = action.payload.total_pages
+    }).addCase(fetchFilms.rejected, (state) => {
+      state.status = 'rejected'
+    })
+  },
 })
 
 export default toolkitSlice.reducer;

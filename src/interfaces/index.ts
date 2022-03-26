@@ -32,7 +32,7 @@ export interface TState {
   pagesCount?: number,
   apiKey?: string,
   status?: null | string,
-  error?: null | string,
+  error?: string | null | undefined,
 }
 
 export interface Payload {
