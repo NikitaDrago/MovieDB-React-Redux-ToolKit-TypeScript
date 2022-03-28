@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/MovieDB-React-Redux-ToolKit-TypeScript/static/css/main.b2323f8e.css",
-    "main.js": "/MovieDB-React-Redux-ToolKit-TypeScript/static/js/main.89e25e1f.js",
+    "main.css": "/MovieDB-React-Redux-ToolKit-TypeScript/static/css/main.80c137dd.css",
+    "main.js": "/MovieDB-React-Redux-ToolKit-TypeScript/static/js/main.3f4e63b5.js",
     "index.html": "/MovieDB-React-Redux-ToolKit-TypeScript/index.html",
-    "main.b2323f8e.css.map": "/MovieDB-React-Redux-ToolKit-TypeScript/static/css/main.b2323f8e.css.map",
-    "main.89e25e1f.js.map": "/MovieDB-React-Redux-ToolKit-TypeScript/static/js/main.89e25e1f.js.map"
+    "main.80c137dd.css.map": "/MovieDB-React-Redux-ToolKit-TypeScript/static/css/main.80c137dd.css.map",
+    "main.3f4e63b5.js.map": "/MovieDB-React-Redux-ToolKit-TypeScript/static/js/main.3f4e63b5.js.map"
   },
   "entrypoints": [
-    "static/css/main.b2323f8e.css",
-    "static/js/main.89e25e1f.js"
+    "static/css/main.80c137dd.css",
+    "static/js/main.3f4e63b5.js"
   ]
 }
