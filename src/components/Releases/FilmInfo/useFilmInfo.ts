@@ -13,8 +13,9 @@ export const useFilmInfo = () => {
   const apiKey = useSelector(apiKeySelector);
   const [data, setData] = useState<TFilmList>({});
   const currentPage: number = Number(page?.slice(5)) || 1;
+  const [spinner, setSpinner] = useState<boolean>(true)
   const background = {
-    backgroundImage: data && `url("https://image.tmdb.org/t/p/original/${data?.backdrop_path}")`,
+    backgroundImage: data.backdrop_path && `url("https://image.tmdb.org/t/p/original/${data?.backdrop_path}")`,
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
   };
@@ -50,17 +51,20 @@ export const useFilmInfo = () => {
 
   useEffect(() => {
     fetchFilmData();
+    console.log('2')
   }, [fetchFilmData, id]);
 
   useEffect(() => {
     dispatch(fetchFilms({currentPage, apiKey}));
+    setSpinner(false)
   }, [dispatch, currentPage]);
 
   return {
+    spinner,
     page,
     data,
     background,
     handleAddToFavorite,
-    handleNextMovie
+    handleNextMovie,
   };
 };

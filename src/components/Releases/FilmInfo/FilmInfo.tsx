@@ -1,10 +1,11 @@
 import './FilmInfo.css';
-import { useFilmInfo } from "./useFilmInfo";
+import {useFilmInfo} from "./useFilmInfo";
 import {useHistory} from "react-router-dom";
+import {Spinner} from "react-bootstrap";
 
 const FilmInfo = () => {
   const history = useHistory();
-  const {page, data, background, handleAddToFavorite, handleNextMovie} = useFilmInfo();
+  const {spinner, page, data, background, handleAddToFavorite, handleNextMovie} = useFilmInfo();
 
   return <div style={background}>
     <div className="filmInfo_blur">
@@ -16,26 +17,28 @@ const FilmInfo = () => {
         <button className="movieDB__button" onClick={handleNextMovie}>Next Movie &#8594;</button>
       </div>
       <div className="filmInfo-wrapper">
-        <img
+        {data.poster_path && <img
           className="releases__item"
           src={data && `http://image.tmdb.org/t/p/w342${data?.poster_path}`}
           alt={data?.poster_path ? data.title : 'Изображение не найдено'}
-        />
+        />}
         <div className="filmInfo-header">
           <div className="filmInfo-buttonWrapper">
             <button className="movieDB__button" onClick={handleAddToFavorite}>Add to Favorite</button>
           </div>
-          <h1 className="filmInfo__title">{data?.title}</h1>
-          <ul className="filmInfo-info">
+          <h1 className="filmInfo__title">{data?.title || 'update..'}</h1>
+          {spinner ? <div className="text-center mt-4">
+            <Spinner animation="border"/>
+          </div> : <ul className="filmInfo-info">
             <li className="cell">{`Score: ${data?.vote_average}`}</li>
             <li className="cell">{`Duration: ${data?.runtime}m`}</li>
             <li className="cell">{`Release Data: ${data?.release_date}`}</li>
-          </ul>
+          </ul>}
           <p className="filmInfo__overview">{data?.overview || 'No Info'}</p>
         </div>
       </div>
     </div>
-  </div>;
+  </div>
 };
 
 export default FilmInfo;
